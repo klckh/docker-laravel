@@ -24,6 +24,10 @@ Below setup has been tested on Ubuntu. On Linux, the default Docker installation
 
     `docker-compose exec backend php artisan migrate:status`
 
+7. Seed test user
+
+    `docker-compose exec backend php artisan db:seed`
+
 7. (Linux) Ensure `storage` folder is writable by the php-fpm process
 
     `chmod -R 777 storage`
