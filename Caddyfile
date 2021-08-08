@@ -1,0 +1,3 @@
+:80
+root * /app/public
+php_fastcgi backend:9000
