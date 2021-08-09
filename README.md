@@ -48,3 +48,28 @@ Below setup has been tested on Ubuntu. On Linux, the default Docker installation
 
 Postman documentation: https://documenter.getpostman.com/view/1087706/TzskENvB
 
+## Design decisions
+
+* Due to limited time, features were kept simple to allow a minimum viable project to be implemented quickly
+* Caddy is used as the web server due to ease of setup
+* MySQL is used as the database because I'm most familiar with it
+* Authentication is implemented using Laravel Sanctum which provides simple session based authentication for single page applications. This is faster and more reliable than implementing from scratch, especially given the time constraints
+* All APIs return a response built using `buildResponse()` to maintain consistency in the return format. It also allows the format be be extended and refactored easily in the future
+* Due to limited time, I've only implemented a minimal set of tests for the items API to demonstrate testing code. It would take too much time to fully cover every possible edge case.
+* The `docker-compose.yml` defines a set of containers which are useful for local development, but shouldn't really be used in production
+
+## Frontend
+
+* The frontend would ideally be built as a single page application using a framework such as Vue.js or React
+* A suitable router should be used to map URL to different page views
+* The application should provide the following pages at a minimum:
+1. Login
+2. List of items
+* Currently there are only 3 fields for items, so a separate details page shouldn't be needed. Create, edit, delete, and update can all be done inline on the items listing page for better UX.
+* The UI should display the result of every request to the user using something non-intrusive like a floating toast. For non 200 HTTP status code repsonses, the error message can be displayed and styled to draw attention to it. All responses can follow the same logic of displaying the `message` field provided by the server, regardless of whether it was a successful or failed response
+* For HTTP 401 (unauthenticated) or 419 (CSRF token expired), the UI should direct the user to the login page to start the login process again. The frontend should be ready to do this on any request.
+
+## Further work
+* Learn how to use CloudFormation and add a template for this project
+* Improve test coverage
+* Add a production ready docker-compose.yml configuration
