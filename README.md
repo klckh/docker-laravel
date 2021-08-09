@@ -55,6 +55,7 @@ Postman documentation: https://documenter.getpostman.com/view/1087706/TzskENvB
 * MySQL is used as the database because I'm most familiar with it
 * Authentication is implemented using Laravel Sanctum which provides simple session based authentication for single page applications. This is faster and more reliable than implementing from scratch, especially given the time constraints
 * All APIs return a response built using `buildResponse()` to maintain consistency in the return format. It also allows the format be be extended and refactored easily in the future
+* Currently the update API doesn't consider multiple users concurrently updating the same item. This can be solved by requiring the frontend to pass a `last_updated_at` timestamp when updating an item, and comparing it to the current `updated_at` timestamp. If the timestamp is different, it means the item was changed during the time the user was viewing the item, and the backend should return a 409 Conflict status to tell the frontend to retrieve the latest version of the item. If the timestamp is the same, the update can proceed. For this to be completely reliable, the timestamp check and update needs to be done in one atomic operation (database record locks can be used to achieve this)
 * Due to limited time, I've only implemented a minimal set of tests for the items API to demonstrate testing code. It would take too much time to fully cover every possible edge case.
 * The `docker-compose.yml` defines a set of containers which are useful for local development, but shouldn't really be used in production
 
@@ -70,6 +71,8 @@ Postman documentation: https://documenter.getpostman.com/view/1087706/TzskENvB
 * For HTTP 401 (unauthenticated) or 419 (CSRF token expired), the UI should direct the user to the login page to start the login process again. The frontend should be ready to do this on any request.
 
 ## Further work
+Around 4 hours were spent on this project. If there was more time I would like to do the following:
+* Support concurrent item update requests as described previously
 * Learn how to use CloudFormation and add a template for this project
 * Improve test coverage
 * Add a production ready docker-compose.yml configuration
