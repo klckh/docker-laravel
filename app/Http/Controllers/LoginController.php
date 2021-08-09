@@ -23,8 +23,6 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
             // Login successful
             return $this->buildResponse(self::CODE_SUCCESS, message: 'Login successful');
         }
