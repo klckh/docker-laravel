@@ -12,7 +12,7 @@ Below setup has been tested on Ubuntu. On Linux, the default Docker installation
 
     `ln -s .env.local .env`
 
-4. Run the application in the foreground or background
+4. Run the application in the foreground or background. Please wait a little for the MySQL container to prepare the initial database
 
     `docker-compose up`
 
