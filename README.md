@@ -31,3 +31,8 @@ Below setup has been tested on Ubuntu. On Linux, the default Docker installation
 7. (Linux) Ensure `storage` folder is writable by the php-fpm process
 
     `chmod -R 777 storage`
+
+## API documentation
+
+Postman documentation: https://documenter.getpostman.com/view/1087706/TzskENvB
+
